@@ -8,7 +8,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.GenericHID.Hand;
+//import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ColorSensor;
 
@@ -34,7 +34,7 @@ public class ColorRead extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double trigger = m_controller.getTriggerAxis(Hand.kRight);
+    //double trigger = m_controller.getTriggerAxis(Hand.kRight);
     boolean isAPressed = m_controller.getAButtonPressed();
     boolean isXPressed = m_controller.getXButtonPressed();
 
