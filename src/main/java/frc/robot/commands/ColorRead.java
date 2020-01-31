@@ -26,8 +26,6 @@ public class ColorRead extends CommandBase {
     addRequirements(m_colorSensor);
   }
 
-  //My change
-
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
