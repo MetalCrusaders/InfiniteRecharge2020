@@ -7,6 +7,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.ExampleCommand;
@@ -20,6 +21,7 @@ import frc.robot.commands.ColorRead;
 import frc.robot.commands.Shoot;
 import frc.robot.subsystems.Intake;
 import frc.robot.commands.IntakeCommand;
+import frc.robot.commands.DriveArcadeAuto;
 
 // My change
 
@@ -33,7 +35,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
 
-  private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
+  //private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
   private final DriveTrain m_drive = new DriveTrain();
 
@@ -47,6 +49,10 @@ public class RobotContainer {
 
   private final XboxController m_controller2 = new XboxController(Constants.kController2);
 
+  private final Encoder m_encoder = new Encoder(0, 1);
+
+  private final DriveArcadeAuto m_driveArcadeAuto = new DriveArcadeAuto(m_drive, m_encoder);
+
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -55,6 +61,7 @@ public class RobotContainer {
     // Configure the button bindings
     configureButtonBindings();
 
+    m_encoder.setDistancePerPulse(Math.PI*6/360);
     m_drive.setDefaultCommand(new DriveArcade(m_drive, m_controller1));
     m_colorSensor.setDefaultCommand(new ColorRead(m_colorSensor, m_controller1));
     m_shooter.setDefaultCommand(new Shoot(m_shooter, m_controller1));
@@ -79,6 +86,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return m_autoCommand;
+    return m_driveArcadeAuto;
   }
 }

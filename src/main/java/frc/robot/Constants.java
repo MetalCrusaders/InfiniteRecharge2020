@@ -18,12 +18,12 @@ package frc.robot;
 public final class Constants {
 
     // Motors
-    public static final int DRIVETRAIN_LEFT_TALON = 0;
+    public static final int DRIVETRAIN_LEFT_TALON = 5;
     public static final int DRIVETRAIN_RIGHT_TALON = 1;
     public static final int WHEEL_MOTOR = 2;
     public static final int SHOOTER_LEFT_VICTOR = 3;
     public static final int SHOOTER_RIGHT_VICTOR = 4;
-    public static final int INTAKE_TALON = 5;
+    public static final int INTAKE_TALON = 0;
 
     // Controllers
     public static final int kController1 = 0;

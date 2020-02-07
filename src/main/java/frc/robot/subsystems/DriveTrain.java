@@ -37,6 +37,10 @@ public class DriveTrain extends SubsystemBase {
     m_drive.arcadeDrive(move, rotate);
   }
 
+  public void arcadeDriveAuto(double move, double rotate) {
+    m_drive.arcadeDrive(move, rotate);
+  }
+
   public void stop() {
     m_drive.arcadeDrive(0, 0);
   }
