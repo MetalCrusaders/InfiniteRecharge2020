@@ -26,6 +26,7 @@ public class PIDDriveArcadeAuto100 extends CommandBase {
   @Override
   public void initialize() {
     m_drive.resetEncoder();
+    m_drive.resetPID();
   }
 
   // Called every time the scheduler runs while the command is scheduled.

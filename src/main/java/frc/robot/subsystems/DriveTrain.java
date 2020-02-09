@@ -34,6 +34,7 @@ public class DriveTrain extends SubsystemBase{
     m_leftMotor = new Talon(Constants.DRIVETRAIN_LEFT_TALON);
     m_rightMotor = new Talon(Constants.DRIVETRAIN_RIGHT_TALON);
     m_encoder = new Encoder(Constants.encoderPort0, Constants.encoderPort1);
+    m_encoder.setDistancePerPulse(Math.PI * 6 / 360);
     m_drive = new DifferentialDrive(m_leftMotor, m_rightMotor);
     m_controller = new PIDController(kP, kI, kD);
     m_controller.setTolerance(0.5);
@@ -62,6 +63,10 @@ public class DriveTrain extends SubsystemBase{
 
   public void resetEncoder() {
     m_encoder.reset();
+  }
+
+  public double getEncoderDistance() {
+    return m_encoder.getDistance();
   }
 
   public void resetPID() {

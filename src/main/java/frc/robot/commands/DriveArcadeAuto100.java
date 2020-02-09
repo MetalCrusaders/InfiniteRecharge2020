@@ -8,23 +8,20 @@
 package frc.robot.commands;
 
 import frc.robot.subsystems.*;
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class DriveArcadeAuto100 extends CommandBase {
   private final DriveTrain m_drive;
-  private final Encoder m_encoder;
 
   final double move = 0.5;
   final double rotate = 0;
   /**
    * Creates a new DriveArcadeAuto.
    */
-  public DriveArcadeAuto100(DriveTrain drive, Encoder encoder) {
+  public DriveArcadeAuto100(DriveTrain drive) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_drive = drive;
-    m_encoder = encoder;
 
     addRequirements(m_drive);
   }
@@ -39,7 +36,7 @@ public class DriveArcadeAuto100 extends CommandBase {
   @Override
   public void execute() {
     //long deltaTime = System.nanoTime() - time;
-    double dist = m_encoder.getDistance();
+    double dist = m_drive.getEncoderDistance();
     SmartDashboard.putNumber("Encoder", dist);
     // double error = 100 - Math.abs(dist);
     // double integral = integral + (error * )

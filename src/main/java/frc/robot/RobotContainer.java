@@ -67,13 +67,12 @@ public class RobotContainer {
     // Configure the button bindings
     configureButtonBindings();
 
-    m_encoder.setDistancePerPulse(Math.PI*6/360);
     m_drive.setDefaultCommand(new DriveArcade(m_drive, m_controller1));
     m_colorSensor.setDefaultCommand(new ColorRead(m_colorSensor, m_controller1));
     m_shooter.setDefaultCommand(new Shoot(m_shooter, m_controller1));
     m_intake.setDefaultCommand(new IntakeCommand(m_intake, m_controller2));
-    m_driveArcadeAuto50 = new DriveArcadeAuto50(m_drive, m_encoder);
-    m_driveArcadeAuto100 = new DriveArcadeAuto100(m_drive, m_encoder);
+    m_driveArcadeAuto50 = new DriveArcadeAuto50(m_drive);
+    m_driveArcadeAuto100 = new DriveArcadeAuto100(m_drive);
     m_DefaultAuto = new DefaultAuto();
     m_chooser = new SendableChooser<Object>();
 
