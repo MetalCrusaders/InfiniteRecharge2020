@@ -7,24 +7,17 @@
 
 package frc.robot.commands;
 
-import frc.robot.subsystems.*;
-import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.DriveTrain;
 
-public class DriveArcadeAuto100 extends CommandBase {
+public class PIDDriveArcadeAuto100 extends CommandBase {
   private final DriveTrain m_drive;
-  private final Encoder m_encoder;
-
-  final double move = 0.5;
-  final double rotate = 0;
   /**
-   * Creates a new DriveArcadeAuto.
+   * Creates a new PIDDriveArcadeAuto100.
    */
-  public DriveArcadeAuto100(DriveTrain drive, Encoder encoder) {
+  public PIDDriveArcadeAuto100(DriveTrain drive) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_drive = drive;
-    m_encoder = encoder;
 
     addRequirements(m_drive);
   }
@@ -38,25 +31,13 @@ public class DriveArcadeAuto100 extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    //long deltaTime = System.nanoTime() - time;
-    double dist = m_encoder.getDistance();
-    SmartDashboard.putNumber("Encoder", dist);
-    // double error = 100 - Math.abs(dist);
-    // double integral = integral + (error * )
-    // double P = 0.005;
-    if (Math.abs(dist) < 97) {
-      m_drive.arcadeDrive(move, rotate);
-    }
-    else if(Math.abs(dist) > 103) {
-      m_drive.arcadeDrive(-move, rotate);
-    }
-
+    m_drive.drive(50);
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(final boolean interrupted) {
-    m_drive.stop();
+  public void end(boolean interrupted) {
+    m_drive.resetPID();
   }
 
   // Returns true when the command should end.

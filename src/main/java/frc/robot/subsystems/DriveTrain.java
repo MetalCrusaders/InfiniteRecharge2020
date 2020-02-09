@@ -49,7 +49,22 @@ public class DriveTrain extends SubsystemBase{
     m_drive.arcadeDrive(move, rotate);
   }
 
+  public void drive(double distance) {
+    m_controller.setSetpoint(distance);
+    double pidOut = m_controller.calculate(m_encoder.getDistance(), m_controller.getSetpoint());
+    arcadeDrive(pidOut, 0);
+    SmartDashboard.putNumber("Encoder", m_encoder.getDistance());
+  }
+
   public void stop() {
     m_drive.arcadeDrive(0, 0);
+  }
+
+  public void resetEncoder() {
+    m_encoder.reset();
+  }
+
+  public void resetPID() {
+    m_controller.reset();
   }
 }
