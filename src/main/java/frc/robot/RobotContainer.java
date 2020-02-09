@@ -39,9 +39,7 @@ public class RobotContainer {
 
   //private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
-  private final Encoder m_encoder = new Encoder(Constants.encoderPort0, Constants.encoderPort1);
-
-  private final DriveTrain m_drive = new DriveTrain(m_encoder);
+  private final DriveTrain m_drive = new DriveTrain();
 
   private final ColorSensor m_colorSensor = new ColorSensor();
 

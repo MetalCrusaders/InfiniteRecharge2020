@@ -30,10 +30,10 @@ public class DriveTrain extends SubsystemBase{
   private final double kI = 0.0;
   private final double kD = 0.0;
 
-  public DriveTrain(Encoder encoder) {
+  public DriveTrain() {
     m_leftMotor = new Talon(Constants.DRIVETRAIN_LEFT_TALON);
     m_rightMotor = new Talon(Constants.DRIVETRAIN_RIGHT_TALON);
-    m_encoder = encoder;
+    m_encoder = new Encoder(Constants.encoderPort0, Constants.encoderPort1);
     m_drive = new DifferentialDrive(m_leftMotor, m_rightMotor);
     m_controller = new PIDController(kP, kI, kD);
     m_controller.setTolerance(0.5);
