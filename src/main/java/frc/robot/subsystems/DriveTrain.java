@@ -7,25 +7,37 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
-public class DriveTrain extends SubsystemBase {
+public class DriveTrain extends SubsystemBase{
   /**
    * Creates a new DriveTrain.
    */
 
-   private final Talon m_leftMotor;
-   private final Talon m_rightMotor;
-   private final DifferentialDrive m_drive;
+  private final Talon m_leftMotor;
+  private final Talon m_rightMotor;
+  private final DifferentialDrive m_drive;
+  private final Encoder m_encoder;
+  private final PIDController m_controller;
 
-  public DriveTrain() {
+  private final double kP = 0.0;
+  private final double kI = 0.0;
+  private final double kD = 0.0;
+
+  public DriveTrain(Encoder encoder) {
     m_leftMotor = new Talon(Constants.DRIVETRAIN_LEFT_TALON);
     m_rightMotor = new Talon(Constants.DRIVETRAIN_RIGHT_TALON);
-
+    m_encoder = encoder;
     m_drive = new DifferentialDrive(m_leftMotor, m_rightMotor);
+    m_controller = new PIDController(kP, kI, kD);
+    m_controller.setTolerance(0.5);
+    m_controller.enableContinuousInput(-200, 200);
   }
 
   @Override
@@ -34,10 +46,6 @@ public class DriveTrain extends SubsystemBase {
   }
 
   public void arcadeDrive(double move, double rotate) {
-    m_drive.arcadeDrive(move, rotate);
-  }
-
-  public void arcadeDriveAuto(double move, double rotate) {
     m_drive.arcadeDrive(move, rotate);
   }
 

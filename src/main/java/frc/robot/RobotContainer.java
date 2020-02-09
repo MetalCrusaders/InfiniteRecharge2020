@@ -7,6 +7,8 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
@@ -21,7 +23,9 @@ import frc.robot.commands.ColorRead;
 import frc.robot.commands.Shoot;
 import frc.robot.subsystems.Intake;
 import frc.robot.commands.IntakeCommand;
-import frc.robot.commands.DriveArcadeAuto;
+import frc.robot.commands.DriveArcadeAuto50;
+import frc.robot.commands.DriveArcadeAuto100;
+import frc.robot.commands.DefaultAuto;
 
 // My change
 
@@ -33,11 +37,13 @@ import frc.robot.commands.DriveArcadeAuto;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
+  //private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
 
   //private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
-  private final DriveTrain m_drive = new DriveTrain();
+  private final Encoder m_encoder = new Encoder(Constants.encoderPort0, Constants.encoderPort1);
+
+  private final DriveTrain m_drive = new DriveTrain(m_encoder);
 
   private final ColorSensor m_colorSensor = new ColorSensor();
 
@@ -49,9 +55,13 @@ public class RobotContainer {
 
   private final XboxController m_controller2 = new XboxController(Constants.kController2);
 
-  private final Encoder m_encoder = new Encoder(0, 1);
+  private final DriveArcadeAuto50 m_driveArcadeAuto50;
 
-  private final DriveArcadeAuto m_driveArcadeAuto = new DriveArcadeAuto(m_drive, m_encoder);
+  private final DriveArcadeAuto100 m_driveArcadeAuto100;
+
+  private final DefaultAuto m_DefaultAuto;
+
+  private final SendableChooser<Object> m_chooser;
 
 
   /**
@@ -66,7 +76,16 @@ public class RobotContainer {
     m_colorSensor.setDefaultCommand(new ColorRead(m_colorSensor, m_controller1));
     m_shooter.setDefaultCommand(new Shoot(m_shooter, m_controller1));
     m_intake.setDefaultCommand(new IntakeCommand(m_intake, m_controller2));
+    m_driveArcadeAuto50 = new DriveArcadeAuto50(m_drive, m_encoder);
+    m_driveArcadeAuto100 = new DriveArcadeAuto100(m_drive, m_encoder);
+    m_DefaultAuto = new DefaultAuto();
+    m_chooser = new SendableChooser<Object>();
 
+    //Adds auto commands
+    m_chooser.setDefaultOption("Default Auto", m_DefaultAuto);
+    m_chooser.addOption("DriveArcadeAuto50", m_driveArcadeAuto50);
+    m_chooser.addOption("DriveArcadeAuto100", m_driveArcadeAuto100);
+    SmartDashboard.putData("Auto mode", m_chooser);
   }
 
   /**
@@ -84,8 +103,8 @@ public class RobotContainer {
    *
    * @return the command to run in autonomous
    */
-  public Command getAutonomousCommand() {
+  public Command getAutonomousCommand() { 
     // An ExampleCommand will run in autonomous
-    return m_driveArcadeAuto;
+    return (Command) m_chooser.getSelected();
   }
 }
