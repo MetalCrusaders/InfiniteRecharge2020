@@ -32,5 +32,6 @@ public final class Constants {
     // Encoder Ports
     public static final int encoderPort0 = 0;
     public static final int encoderPort1 = 1;
-
+    public static final int encoderPort2 = 2;
+    public static final int encoderPort3 = 3;
 }

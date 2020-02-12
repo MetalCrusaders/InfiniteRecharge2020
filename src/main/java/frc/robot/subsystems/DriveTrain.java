@@ -23,7 +23,8 @@ public class DriveTrain extends SubsystemBase{
   private final Talon m_leftMotor;
   private final Talon m_rightMotor;
   private final DifferentialDrive m_drive;
-  private final Encoder m_encoder;
+  private final Encoder m_encoder1;
+  private final Encoder m_encoder2;
   private final PIDController m_controller;
 
   private final double kP = 0.0;
@@ -33,8 +34,10 @@ public class DriveTrain extends SubsystemBase{
   public DriveTrain() {
     m_leftMotor = new Talon(Constants.DRIVETRAIN_LEFT_TALON);
     m_rightMotor = new Talon(Constants.DRIVETRAIN_RIGHT_TALON);
-    m_encoder = new Encoder(Constants.encoderPort0, Constants.encoderPort1);
-    m_encoder.setDistancePerPulse(Math.PI * 6 / 360);
+    m_encoder1 = new Encoder(Constants.encoderPort0, Constants.encoderPort1);
+    m_encoder1.setDistancePerPulse(Math.PI * 6 / 360);
+    m_encoder2 = new Encoder(Constants.encoderPort2, Constants.encoderPort3);
+    m_encoder2.setDistancePerPulse(Math.PI * 6 / 2048);
     m_drive = new DifferentialDrive(m_leftMotor, m_rightMotor);
     m_controller = new PIDController(kP, kI, kD);
     m_controller.setTolerance(0.5);
@@ -52,9 +55,9 @@ public class DriveTrain extends SubsystemBase{
 
   public void drive(double distance) {
     m_controller.setSetpoint(distance);
-    double pidOut = m_controller.calculate(m_encoder.getDistance(), m_controller.getSetpoint());
+    double pidOut = m_controller.calculate(m_encoder1.getDistance(), m_controller.getSetpoint());
     arcadeDrive(pidOut, 0);
-    SmartDashboard.putNumber("Encoder", m_encoder.getDistance());
+    SmartDashboard.putNumber("Encoder", m_encoder1.getDistance());
   }
 
   public void stop() {
@@ -62,11 +65,16 @@ public class DriveTrain extends SubsystemBase{
   }
 
   public void resetEncoder() {
-    m_encoder.reset();
+    m_encoder1.reset();
+    m_encoder2.reset();
   }
 
-  public double getEncoderDistance() {
-    return m_encoder.getDistance();
+  public double getEncoder1Distance() {
+    return m_encoder1.getDistance();
+  }
+
+  public double getEncoder2Distance() {
+    return m_encoder2.getDistance();
   }
 
   public void resetPID() {

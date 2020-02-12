@@ -36,9 +36,11 @@ public class DriveArcadeAuto50 extends CommandBase {
   @Override
   public void execute() {
     
-    double dist = m_drive.getEncoderDistance();
-    SmartDashboard.putNumber("Encoder", dist);
-    if (Math.abs(dist) < 50) {
+    double dist1 = m_drive.getEncoder1Distance();
+    double dist2 = m_drive.getEncoder2Distance();
+    SmartDashboard.putNumber("Encoder 1", dist1);
+    SmartDashboard.putNumber("Encoder 2", dist2);
+    if ((Math.abs(dist1) + Math.abs(dist2)) / 2 < 50) {
       m_drive.arcadeDrive(move, rotate);
     }
 

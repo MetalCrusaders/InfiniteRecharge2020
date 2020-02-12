@@ -36,15 +36,15 @@ public class DriveArcadeAuto100 extends CommandBase {
   @Override
   public void execute() {
     //long deltaTime = System.nanoTime() - time;
-    double dist = m_drive.getEncoderDistance();
+    double dist = m_drive.getEncoder1Distance();
     SmartDashboard.putNumber("Encoder", dist);
     // double error = 100 - Math.abs(dist);
     // double integral = integral + (error * )
     // double P = 0.005;
-    if (Math.abs(dist) < 97) {
+    if (Math.abs(dist) < 97.5) {
       m_drive.arcadeDrive(move, rotate);
     }
-    else if(Math.abs(dist) > 103) {
+    else if(Math.abs(dist) > 102.5) {
       m_drive.arcadeDrive(-move, rotate);
     }
 
