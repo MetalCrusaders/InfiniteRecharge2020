@@ -1,0 +1,23 @@
+[
+  {
+    "artifact": "frcJava (in project GanonCode)",
+    "target": "roborio",
+    "debugfile": "frcJava_roborio.debugconfig",
+    "project": "GanonCode",
+    "language": "java"
+  },
+  {
+    "artifact": "frcJava (in project NewChassis)",
+    "target": "roborio",
+    "debugfile": "frcJava_roborio.debugconfig",
+    "project": "NewChassis",
+    "language": "java"
+  },
+  {
+    "artifact": "frcJava (in project Practice)",
+    "target": "roborio",
+    "debugfile": "frcJava_roborio.debugconfig",
+    "project": "Practice",
+    "language": "java"
+  }
+]
